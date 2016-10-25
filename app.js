@@ -30,7 +30,6 @@ app.get('/auth', (req, res) => {
     state: state,
   }
 
-  request.get().auth()
   request.post('https://www.livecoding.tv/o/token/', {
     formData: formData,
     'auth': {
