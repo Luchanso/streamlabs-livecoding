@@ -20,6 +20,8 @@ app.get('/', (req, res) => {
 })
 
 app.get('/auth', (req, res) => {
+  console.log(req.body)
+
   let code =  req.query.code
 
   let formData = {
