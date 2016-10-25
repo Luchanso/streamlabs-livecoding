@@ -1,0 +1,27 @@
+{
+  "name": "livecoding-follower",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Luchanso/streamlabs-livecoding.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Luchanso/streamlabs-livecoding/issues"
+  },
+  "homepage": "https://github.com/Luchanso/streamlabs-livecoding#readme",
+  "engines": {
+    "node": "6.7.0",
+    "npm": "3.10.3"
+  },
+  "dependencies": {
+    "express": "^4.14.0"
+  }
+}
