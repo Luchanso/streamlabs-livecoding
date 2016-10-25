@@ -6,6 +6,7 @@ const app = express()
 const clientId = process.env.CLIENT_ID
 const clientSecret = process.env.CLIENT_SECRET
 const rederict = process.env.HOST + 'auth'
+const state = 'random_state' // :D
 
 process.env.PORT = process.env.PORT || 5000
 
@@ -21,16 +22,20 @@ app.get('/', (req, res) => {
 
 app.get('/auth', (req, res) => {
   console.log(req.body)
+  console.log(req.query)
 
-  let code =  req.query.code
+  return  
+
+  // let code =  req.query
 
   let formData = {
     code: code,
     rederict_url: rederict,
-    grant_type: 'implicit_grant'
+    grant_type: 'Bearer',
+    scope: 'read:user',
+    expires_in: 60 * 60 * 24 * 10,
+    state: state
   }
-
-  console.log(formData)
 
   request.post('https://www.livecoding.tv/o/token/', {formData: formData}, (err, resp, body) => {
     let str = JSON.stringify({
@@ -45,7 +50,7 @@ app.get('/auth', (req, res) => {
 })
 
 app.get('/login', (req, res) => {
-  let host = `https://www.livecoding.tv/o/authorize/?scope=read&redirect_uri=${rederict}&response_type=code&client_id=${clientId}`
+  let host = `https://www.livecoding.tv/o/authorize/?redirect_uri=${rederict}&response_type=token&client_id=${clientId}&state=${state}`
 
   res.redirect(host)
 })
