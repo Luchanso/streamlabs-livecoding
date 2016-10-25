@@ -31,8 +31,14 @@ app.get('/auth', (req, res) => {
   console.log(formData)
 
   request.post('https://www.livecoding.tv/o/token', {formData: formData}, (err, resp, body) => {
-    console.log(body)
-    res.send(body)
+    let str = JSON.stringify({
+      err: err,
+      resp: resp,
+      body: body
+    })
+
+    console.log(str)
+    res.send(str)
   })
 })
 
