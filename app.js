@@ -28,7 +28,7 @@ app.get('/auth', (req, res) => {
     grant_type: 'authorization_code'
   }
 
-  request.post('https://www.livecoding.tv/o/token/', {formData}, (err, resp, body) => {
+  request.post('https://www.livecoding.tv/o/token/', {formData: formData}, (err, resp, body) => {
     console.log(body)
     res.send(body)
   })
