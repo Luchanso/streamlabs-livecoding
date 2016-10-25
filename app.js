@@ -21,23 +21,16 @@ app.get('/', (req, res) => {
 })
 
 app.get('/auth', (req, res) => {
-  console.log(req.body)
-  console.log(req.query)
-
-  return res.send('Ok')
-
-  // let code =  req.query
+  let code =  req.query.code
 
   let formData = {
     code: code,
     rederict_url: rederict,
-    grant_type: 'Bearer',
-    scope: 'read:user',
-    expires_in: 60 * 60 * 24 * 10,
-    state: state
+    grant_type: 'authorization_code'
+    state: state,
   }
 
-  request.post('https://www.livecoding.tv/o/token/', {formData: formData}, (err, resp, body) => {
+  request.post(`${clientId}:${clientSecret}@` + 'https://www.livecoding.tv/o/token/', {formData: formData}, (err, resp, body) => {
     let str = JSON.stringify({
       err: err,
       resp: resp,
