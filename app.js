@@ -31,8 +31,9 @@ app.get('/auth', (req, res) => {
   }
 
   // console.log(formData)
+  // https://www.livecoding.tv/o/token/
 
-  request.post('https://www.livecoding.tv/o/token/', {
+  request.post('/token', {
     formData: formData,
     'auth': {
       'client_id': clientId,
@@ -55,6 +56,13 @@ app.get('/login', (req, res) => {
   let host = `https://www.livecoding.tv/o/authorize/?redirect_uri=${rederict}&scope=read&response_type=code&client_id=${clientId}&state=${state}`
 
   res.redirect(host)
+})
+
+app.all('/token', (req, res) => {
+  console.log(req.query)
+  console.log(req.body)
+
+  res.send()
 })
 
 app.listen(process.env.PORT, function () {
