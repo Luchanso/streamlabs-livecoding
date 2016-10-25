@@ -35,7 +35,7 @@ app.get('/auth', (req, res) => {
     'auth': {
       'client_id': clientId,
       'secret_id': clientSecret,
-      'sendImmediately': false
+      'sendImmediately': true
     }
   }, (err, resp, body) => {
     let str = JSON.stringify({
