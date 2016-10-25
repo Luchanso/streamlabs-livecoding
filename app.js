@@ -25,7 +25,7 @@ app.get('/auth', (req, res) => {
 
   let formData = {
     grant_type: 'authorization_code',
-    code: code,
+    // code: code,
     rederict_url: rederict,
     state: state
   }
