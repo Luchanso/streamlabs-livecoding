@@ -5,7 +5,7 @@ const app = express()
 
 const clientId = process.env.CLIENT_ID
 const clientSecret = process.env.CLIENT_SECRET
-const rederict = process.env.HOST + '/auth'
+const rederict = process.env.HOST + 'auth'
 
 process.env.PORT = process.env.PORT || 5000
 
