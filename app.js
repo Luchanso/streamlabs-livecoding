@@ -30,13 +30,15 @@ app.get('/auth', (req, res) => {
     state: state,
   }
 
+  console.log(formData)
+
   request.post('https://www.livecoding.tv/o/token/', {
     formData: formData,
-    'auth': {
-      'client_id': clientId,
-      'secret_id': clientSecret,
-      'sendImmediately': true
-    }
+    // 'auth': {
+    //   'client_id': clientId,
+    //   'secret_id': clientSecret,
+    //   'sendImmediately': true
+    // }
   }, (err, resp, body) => {
     let str = JSON.stringify({
       err: err,
