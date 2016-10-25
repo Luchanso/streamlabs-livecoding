@@ -27,14 +27,11 @@ app.get('/auth', (req, res) => {
     code: code,
     rederict_url: rederict,
     grant_type: 'authorization_code',
-    state: state,
-    client_id: clientId,
-    secret_id: clientSecret
+    state: state
   }
 
   // console.log(formData)
 
-  request.get('https://www.livecoding.tv/o/token/').auth(clientId, clientSecret, false);
   request.post('https://www.livecoding.tv/o/token/', {
     formData: formData,
     'auth': {
