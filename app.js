@@ -14,7 +14,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
 app.get('/', (req, res) => {
-  res.send('Hello! <a href="/login">Authorize</a>')
+  res.send('Hi! Can you don\'t touch this pls? Just close. <a href="/login">Authorize</a>')
   // request.post('https://www.livecoding.tv:443/api/user/followers/', {formData}, (err, resp, body) => {
   //   res.send(body)
   // })
@@ -24,7 +24,7 @@ app.get('/auth', (req, res) => {
   console.log(req.body)
   console.log(req.query)
 
-  return  
+  return res.send('Ok')
 
   // let code =  req.query
 
