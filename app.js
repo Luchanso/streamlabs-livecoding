@@ -13,7 +13,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
 app.get('/', (req, res) => {
-  res.send('Hello! <a href="/auth">Authorize</a>')
+  res.send('Hello! <a href="/login">Authorize</a>')
   // request.post('https://www.livecoding.tv:443/api/user/followers/', {formData}, (err, resp, body) => {
   //   res.send(body)
   // })
@@ -30,7 +30,7 @@ app.get('/auth', (req, res) => {
 
   console.log(formData)
 
-  request.post('https://www.livecoding.tv/o/token/', {formData: formData}, (err, resp, body) => {
+  request.post('https://www.livecoding.tv/o/token', {formData: formData}, (err, resp, body) => {
     console.log(body)
     res.send(body)
   })
