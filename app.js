@@ -5,7 +5,7 @@ const app = express()
 
 const clientId = process.env.CLIENT_ID
 const clientSecret = process.env.CLIENT_SECRET
-const rederict = process.env.HOST + 'auth'
+const redirect = process.env.HOST + 'auth'
 const state = 'random_state' // :D
 
 process.env.PORT = process.env.PORT || 5000
@@ -26,7 +26,7 @@ app.get('/auth', (req, res) => {
   let formData = {
     grant_type: 'authorization_code',
     code: code,
-    rederict_url: rederict,
+    redirect_url: redirect,
     state: state
   }
 
@@ -45,7 +45,7 @@ app.get('/auth', (req, res) => {
 })
 
 app.get('/login', (req, res) => {
-  let host = `https://www.livecoding.tv/o/authorize/?redirect_uri=${rederict}&scope=read&response_type=code&client_id=${clientId}&state=${state}`
+  let host = `https://www.livecoding.tv/o/authorize/?redirect_uri=${redirect}&scope=read&response_type=code&client_id=${clientId}&state=${state}`
 
   res.redirect(host)
 })
