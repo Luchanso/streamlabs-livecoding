@@ -50,7 +50,7 @@ app.get('/auth', (req, res) => {
 })
 
 app.get('/login', (req, res) => {
-  let host = `https://www.livecoding.tv/o/authorize/?response_type=token&client_id=${clientId}&state=${state}`
+  let host = `https://www.livecoding.tv/o/authorize/?redirect_uri=${rederict}&scope=read&response_type=code&client_id=${clientId}&state=${state}`
 
   res.redirect(host)
 })
