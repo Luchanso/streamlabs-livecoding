@@ -51,10 +51,11 @@ app.listen(process.env.PORT, function () {
 })
 
 function getFollowers(res) {
-  let formData = {
-    access_token
-  }
-  request.post('https://www.livecoding.tv:443/api/user/followers/', {formData}, (err, resp, body) => {
+  request.post('https://www.livecoding.tv:443/api/user/followers/', {
+    'auth': {
+      'bearer': access_token
+    }
+  }, (err, resp, body) => {
     let str = JSON.stringify({
       err: err,
       resp: resp,
