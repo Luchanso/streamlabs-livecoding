@@ -8,6 +8,10 @@ const clientSecret = process.env.CLIENT_SECRET
 const redirect = process.env.HOST + 'auth'
 const state = 'random_state' // :D
 
+let access_token
+let refresh_token
+let access_expire
+
 process.env.PORT = process.env.PORT || 5000
 
 app.use(bodyParser.json())
@@ -15,9 +19,6 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 app.get('/', (req, res) => {
   res.send('Hi! Can you don\'t touch this pls? Just close. <a href="/login">Authorize</a>')
-  // request.post('https://www.livecoding.tv:443/api/user/followers/', {formData}, (err, resp, body) => {
-  //   res.send(body)
-  // })
 })
 
 app.get('/auth', (req, res) => {
@@ -33,14 +34,9 @@ app.get('/auth', (req, res) => {
   request.post(`https://${clientId}:${clientSecret}@www.livecoding.tv/o/token/`, {
     formData: formData,
   }, (err, resp, body) => {
-    let str = JSON.stringify({
-      err: err,
-      resp: resp,
-      body: body
-    })
+    access_token = JSON.parse(body).access_token
 
-    console.log(str)
-    res.send(str)
+    getFollowers(res)
   })
 })
 
@@ -53,3 +49,19 @@ app.get('/login', (req, res) => {
 app.listen(process.env.PORT, function () {
   console.log(`Example app listening on port ${process.env.PORT}!`)
 })
+
+function getFollowers(res) {
+  let formData = {
+    access_token
+  }
+  request.post('https://www.livecoding.tv:443/api/user/followers/', {formData}, (err, resp, body) => {
+    let str = JSON.stringify({
+      err: err,
+      resp: resp,
+      body: body
+    })
+
+    console.log(str)
+    res.send(str)
+  })
+}
