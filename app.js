@@ -13,6 +13,8 @@ let refresh_token
 let access_expire
 let followers
 
+const timeUpdate = 5000
+
 process.env.PORT = process.env.PORT || 5000
 
 app.use(bodyParser.json())
@@ -22,7 +24,7 @@ app.get('/', (req, res) => {
   res.send('Hi! Can you don\'t touch this pls? Just close. <a href="/login">Authorize</a>')
 })
 
-app.get('/auth', (req, res) => {
+app.get('/auth-livecoding', (req, res) => {
   let code =  req.query.code
 
   let formData = {
@@ -39,21 +41,77 @@ app.get('/auth', (req, res) => {
 
     res.send('All ok')
 
-    getFollowers(null, arr => {
-      followers = arr
-    })
+    setInterval(timeUpdate, update)
   })
 })
 
-app.get('/login', (req, res) => {
+app.get('/auth-streamlabs', (req, res) => {
+  let code =  req.query.code
+
+  console.log(code)
+}
+
+app.get('/login-livecoding', (req, res) => {
   let host = `https://www.livecoding.tv/o/authorize/?response_type=code&client_id=${clientId}&state=${state}`
 
   res.redirect(host)
 })
 
+app.get('/login-streamlabs', (req, res) => {
+
+}
+
 app.listen(process.env.PORT, function () {
   console.log(`Example app listening on port ${process.env.PORT}!`)
 })
+
+function update() {
+  getFollowers(error, arr => {
+    if (followers == null) {
+      followers = arr
+    }
+
+    if (followers.length !== arr.length) {
+      return
+    }
+
+    let difference = getDifference(followers, arr)
+  })
+}
+
+function error(msg) {
+  console.error(msg)
+}
+
+function getDifference(arr1, arr2) {
+  let difference = []
+  let bigger, smaller
+
+  if (arr1.length > arr2.length) {
+    bigger = arr1
+    smaller = arr2
+  } else {
+    bigger = arr2
+    smaller = arr1
+  }
+
+  for (let i = 0; i < bigger.length; i++) {
+    let find = false
+
+    for (let j = 0; j < smaller.length; j++) {
+      if (bigger[i].username === smaller[j].username) {
+        find = true
+        break
+      }
+    }
+
+    if (!find) {
+      difference.push(bigger[i])
+    }
+  }
+
+  return difference
+}
 
 function getFollowers(error, callback) {
   request.get('https://www.livecoding.tv/api/user/followers/', {
@@ -67,4 +125,8 @@ function getFollowers(error, callback) {
       callback(JSON.parse(body))
     }
   })
+}
+
+module.exports = {
+  getDifference: getDifference
 }
