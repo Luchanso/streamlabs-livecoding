@@ -11,6 +11,7 @@ const state = 'random_state' // :D
 let access_token
 let refresh_token
 let access_expire
+let followers
 
 process.env.PORT = process.env.PORT || 5000
 
@@ -36,7 +37,11 @@ app.get('/auth', (req, res) => {
   }, (err, resp, body) => {
     access_token = JSON.parse(body).access_token
 
-    getFollowers(res)
+    res.send('All ok')
+
+    getFollowers(null, arr => {
+      followers = arr
+    })
   })
 })
 
@@ -50,19 +55,16 @@ app.listen(process.env.PORT, function () {
   console.log(`Example app listening on port ${process.env.PORT}!`)
 })
 
-function getFollowers(res) {
+function getFollowers(error, callback) {
   request.get('https://www.livecoding.tv/api/user/followers/', {
     'auth': {
       'bearer': access_token
     }
   }, (err, resp, body) => {
-    let str = JSON.stringify({
-      err: err,
-      resp: resp,
-      body: body
-    })
-
-    console.log(str)
-    res.send(str)
+    if (err != null) {
+      error(err)
+    } else {
+      callback(JSON.parse(body))
+    }
   })
 }
