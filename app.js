@@ -26,8 +26,8 @@ app.get('/auth', (req, res) => {
   let formData = {
     grant_type: 'authorization_code',
     code: code,
-    redirect_url: redirect,
-    state: state
+    redirect_uri: redirect,
+    client_id: clientId
   }
 
   request.post(`https://${clientId}:${clientSecret}@www.livecoding.tv/o/token/`, {
@@ -45,7 +45,7 @@ app.get('/auth', (req, res) => {
 })
 
 app.get('/login', (req, res) => {
-  let host = `https://www.livecoding.tv/o/authorize/?redirect_uri=${redirect}&scope=read&response_type=code&client_id=${clientId}&state=${state}`
+  let host = `https://www.livecoding.tv/o/authorize/?response_type=code&client_id=${clientId}&state=${state}`
 
   res.redirect(host)
 })
