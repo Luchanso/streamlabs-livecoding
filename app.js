@@ -51,7 +51,7 @@ app.listen(process.env.PORT, function () {
 })
 
 function getFollowers(res) {
-  request.get('https://www.livecoding.tv/api/user/livestreams/', {
+  request.get('https://www.livecoding.tv/api/user/followers/', {
     'auth': {
       'bearer': access_token
     }
